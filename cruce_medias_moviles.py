@@ -3,7 +3,7 @@ from ppi_client.ppi import PPI
 from datetime import datetime, timedelta
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import config
 
 def get_dataframe_from_marketdata(marketdata):
     return pd.DataFrame.from_dict(marketdata)
@@ -11,10 +11,12 @@ def get_dataframe_from_marketdata(marketdata):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+
     ppi = PPI(sandbox=False)
 
     # Change login credential to connect to the API
-    ppi.account.login_api('<key publica>', '<key privada>')
+    ppi.account.login_api(config.PUBLIC_KEY, config.PRIVATE_KEY)
+
 
     ticker = "GGAL"
     tipo_instrumento = "Acciones"
@@ -22,8 +24,9 @@ if __name__ == '__main__':
     # Search Historic MarketData
     print(f"Bajando MarketData de {ticker}")
 
-    market_data = ppi.marketdata.search(ticker, tipo_instrumento, "A-48HS", datetime(2015, 1, 1),
-                                        datetime(2023, 12, 31))
+    market_data = ppi.marketdata.search(ticker, tipo_instrumento, "A-24HS", datetime(2020, 1, 1),
+                                        datetime(2024, 12, 31))
+    
     df_marketdata = get_dataframe_from_marketdata(market_data)
 
     medias = [20, 50, 90, 200]
@@ -55,6 +58,5 @@ if __name__ == '__main__':
     plt.scatter(df_marketdata[cruces_arriba]["date"], df_marketdata[cruces_arriba]["price"], c="#008900", marker="^", s=200)
 
     plt.savefig(f"GraficoMedias{ticker}ConCruces.png")
-
-
+    plt.show()
 

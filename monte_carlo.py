@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import config
 from scipy.stats import norm
 
 
@@ -17,7 +18,7 @@ def simulacion_montecarlo(ppi, ticker, tipo_instrumento, dias_a_proyectar, canti
     # Search Historic MarketData
     print(f"Bajando MarketData de {ticker}")
 
-    market_data = ppi.marketdata.search(ticker, tipo_instrumento, "A-48HS", datetime(2015, 1, 1), datetime(2023, 12, 31))
+    market_data = ppi.marketdata.search(ticker, tipo_instrumento, "A-48HS", datetime(2024, 1, 1), datetime(2024, 7, 31))
     df_marketdata = get_dataframe_from_marketdata(market_data)
 
     df_marketdata_instrumento = df_marketdata[["date", "price"]]
@@ -71,10 +72,10 @@ if __name__ == '__main__':
 
     ppi = PPI(sandbox=False)
 
-    ppi.account.login_api('<key publica>', '<key privada>')
+    ppi.account.login_api(config.PUBLIC_KEY, config.PRIVATE_KEY)
 
     ticker = "GGAL"
 
-    simulacion_montecarlo(ppi, ticker, "Acciones", dias_a_proyectar = 90, cantidad_simulaciones = 10000, precio_a_evaluar = 500)
+    simulacion_montecarlo(ppi, ticker, "Acciones", dias_a_proyectar = 90, cantidad_simulaciones = 10000, precio_a_evaluar = 4000)
 
 

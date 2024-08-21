@@ -18,6 +18,7 @@ import asyncio
 import json
 import traceback
 import os
+import config
 from openpyxl import Workbook
 
 # Change sandbox variable to False to connect to production environment
@@ -27,11 +28,11 @@ ppi = PPI(sandbox=False)
 def main():
     try:
         # Change login credential to connect to the API
-        ppi.account.login_api('<key publica>', '<key privada>')
+        ppi.account.login_api(config.PUBLIC_KEY, config.PRIVATE_KEY)
 
         # Obtengo las cotizaciones historicas
         print("\nSearching MarketData")
-        market_data = ppi.marketdata.search("GGAL", "Acciones", "A-48HS", datetime(2021, 1, 1), datetime(2021, 12, 31))
+        market_data = ppi.marketdata.search("GGAL", "Acciones", "A-48HS", datetime(2023, 1, 1), datetime(2023, 12, 31))
 
         # Creo el excel
         workbook = Workbook()

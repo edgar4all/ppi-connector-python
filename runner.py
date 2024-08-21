@@ -19,15 +19,20 @@ import asyncio
 import json
 import traceback
 import os
+import sys
+import config
+
 
 # Change sandbox variable to False to connect to production environment
 ppi = PPI(sandbox=False)
 
 
-def main():
+def main():    
+    #sys.exit()
+
     try:
         # Change login credential to connect to the API
-        ppi.account.login_api('<key publica>', '<key privada>')
+        ppi.account.login_api(config.PUBLIC_KEY, config.PRIVATE_KEY)
 
         # Getting accounts information
         print("Getting accounts information")
@@ -64,11 +69,12 @@ def main():
 
         # Getting movements
         print("\nGetting movements of %s" % account_number)
-        movements = ppi.account.get_movements(AccountMovements(account_number, datetime(2021, 12,1),
-                                                               datetime(2021, 12, 31), None))
+        movements = ppi.account.get_movements(AccountMovements(account_number, datetime(2024, 1,1),
+                                                               datetime(2024,12,31), None))
         for mov in movements:
+            
             print("%s %s - Currency %s Amount %s " % (
-                mov['settlementDate'], mov['description'], mov['currency'], mov['amount']))
+                    mov['settlementDate'], mov['description'], mov['currency'], mov['amount']))            
 
         # Getting instrument types
         print("\nGetting instrument types")
@@ -138,7 +144,7 @@ def main():
 
         # Search Historic MarketData
         print("\nSearching MarketData")
-        market_data = ppi.marketdata.search("GGAL", "Acciones", "A-24HS", datetime(2021, 1, 1), datetime(2021, 12, 31))
+        market_data = ppi.marketdata.search("GGAL", "Acciones", "A-24HS", datetime(2024, 1, 1), datetime(2024, 12, 31))
         for ins in market_data:
             print("%s - %s - Volume %s - Opening %s - Min %s - Max %s" % (
                 ins['date'], ins['price'], ins['volume'], ins['openingPrice'], ins['min'], ins['max']))
@@ -322,11 +328,12 @@ def main():
         '''
         
         # Estimate bond
+        """         
         print("\nEstimate bond")
         estimate = ppi.marketdata.estimate_bonds(EstimateBonds(ticker="CUAP", date=datetime.today(), quantityType="PAPELES", quantity=100,
                                                                price=4555))
-        print(estimate)
-
+        print(json.dumps(estimate,indent=2))
+        """
         # Realtime subscription to market data
         def onconnect_marketdata():
             try:
