@@ -3,3 +3,6 @@ config.py
 /__pycache__
 GraficoMediasGGALConCruces.png
 *.png
+.env
+*.csv
+*.json

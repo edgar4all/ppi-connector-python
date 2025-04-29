@@ -17,6 +17,7 @@ import asyncio
 import json
 import traceback
 import os
+import config
 
 # Change sandbox variable to False to connect to production environment
 ppi = PPI(sandbox=False)
@@ -61,7 +62,7 @@ def calcular_y_mostrar():
 def main():
     try:
         # Change login credential to connect to the API
-        ppi.account.login_api('<key publica>', '<key privada>')
+        ppi.account.login_api(config.PUBLIC_KEY, config.PRIVATE_KEY)
 
         def onconnect_marketdata():
             try:
@@ -126,6 +127,7 @@ def main():
                 print(datetime.now())
                 print("Error en marketdata: %s. Trace:\n" % error)
                 traceback.print_exc()
+                
 
         ppi.realtime.connect_to_market_data(onconnect_marketdata, ondisconnect_marketdata, onmarketdata)
         
