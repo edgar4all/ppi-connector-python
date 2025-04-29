@@ -94,7 +94,7 @@ def main():
                 calcular_y_mostrar()
 
                 # Me suscribo a novedades
-                ppi.realtime.subscribe_to_element(Instrument("AL30", "BONOS", "INMEDIATA"))
+                """ ppi.realtime.subscribe_to_element(Instrument("AL30", "BONOS", "INMEDIATA"))
                 ppi.realtime.subscribe_to_element(Instrument("AL30C", "BONOS", "INMEDIATA"))
                 ppi.realtime.subscribe_to_element(Instrument("AL30D", "BONOS", "INMEDIATA"))
                 ppi.realtime.subscribe_to_element(Instrument("AL35", "BONOS", "INMEDIATA"))
@@ -102,7 +102,7 @@ def main():
                 ppi.realtime.subscribe_to_element(Instrument("AL35D", "BONOS", "INMEDIATA"))
                 ppi.realtime.subscribe_to_element(Instrument("GD30", "BONOS", "INMEDIATA"))
                 ppi.realtime.subscribe_to_element(Instrument("GD30C", "BONOS", "INMEDIATA"))
-                ppi.realtime.subscribe_to_element(Instrument("GD30D", "BONOS", "INMEDIATA"))
+                ppi.realtime.subscribe_to_element(Instrument("GD30D", "BONOS", "INMEDIATA")) """
 
             except Exception as error:
                 traceback.print_exc()
